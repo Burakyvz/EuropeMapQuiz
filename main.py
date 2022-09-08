@@ -23,10 +23,7 @@ while len(guessed_countries) < 50:
                                       prompt="What's another country's name?").title()
 
     if answer_country == "Exit":
-        missing_countries = []
-        for country in all_countries:
-            if country not in guessed_countries:
-                missing_countries.append(country)
+        missing_countries = [country for country in all_countries if country not in guessed_countries]
         new_data = pandas.DataFrame(missing_countries)
         new_data.to_csv("countries_to_learn.csv")
         break
@@ -39,6 +36,3 @@ while len(guessed_countries) < 50:
         country_data = data[data.country == answer_country]
         t.goto(int(country_data.x), int(country_data.y))
         t.write(answer_country, font=("Arial", 16, "normal"))
-
-
-
